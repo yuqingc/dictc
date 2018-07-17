@@ -4,7 +4,8 @@
   "description": "Generate a manual for your React component lib",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config core/webpack/webpack.dev.js --open"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,40 @@
   "bugs": {
     "url": "https://github.com/yuqingc/dictc/issues"
   },
-  "homepage": "https://github.com/yuqingc/dictc#readme"
+  "homepage": "https://github.com/yuqingc/dictc#readme",
+  "devDependencies": {
+    "add-asset-html-webpack-plugin": "^2.1.3",
+    "autoprefixer": "^9.0.0",
+    "awesome-typescript-loader": "^5.2.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "fork-ts-checker-webpack-plugin": "^0.4.3",
+    "hard-source-webpack-plugin": "^0.11.1",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.9.2",
+    "postcss-loader": "^2.1.6",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^2.9.2",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-server": "^3.1.4"
+  },
+  "dependencies": {
+    "@types/prismjs": "^1.9.0",
+    "@types/react": "^16.4.6",
+    "@types/react-dom": "^16.0.6",
+    "@types/react-router": "^4.0.29",
+    "@types/react-router-dom": "^4.2.7",
+    "antd": "^3.7.0",
+    "prismjs": "^1.15.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-markdown": "^3.3.4",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
+  }
 }

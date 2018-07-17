@@ -1,0 +1,55 @@
+$sider-width: 200px;
+$sider-header-height: 100px;
+
+.dictc-layout {
+  .dictc-sider {
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .dictc-sider-header {
+      width: $sider-width;
+      height: $sider-header-height;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      .dictc-sider-title {
+        margin: 0;
+        color: #ededed;
+        padding: 0 10px;
+        height: 50px;
+        line-height: 50px;
+        width: $sider-width;
+        font-size: 22px;
+        font-weight: bold;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+      }
+    }
+    .dictc-sider-menu {
+      margin-top: $sider-header-height;
+    }
+  }
+  .dictc-right-layout {
+    margin-left: $sider-width;
+    .dictc-content {
+      margin: 24px 16px 0;
+      overflow: initial;
+      .content-paper {
+        padding: 24px;
+        background: #fdfdfd;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .dictc-footer {
+      text-align: center;
+    }
+  }
+}
