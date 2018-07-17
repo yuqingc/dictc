@@ -76,7 +76,7 @@ class SideMenu extends React.Component<ISideMenuProps, {}> {
     // const { history, onChangeMenu } = this.props;
     // history.replace(e.key);
     // onChangeMenu && onChangeMenu(e.key);
-    console.log('change menu', e)
+    console.log('change menu', e);
   }
 
   // tslint:disable-next-line:member-ordering
@@ -88,7 +88,7 @@ class SideMenu extends React.Component<ISideMenuProps, {}> {
         onClick={this.handleClick}
         defaultSelectedKeys={['Home']}
         mode="inline"
-        selectedKeys={["1"]}
+        selectedKeys={['1']}
       >
         <Menu.Item key="1">Component</Menu.Item>
         <Menu.Item key="2">Component</Menu.Item>

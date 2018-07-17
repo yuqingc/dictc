@@ -6,7 +6,7 @@ import SideMenu from './SideMenu';
 // mock data
 import FakeContent from 'ts/components/mock/FakeContent';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Footer, Sider, Content } = Layout;
 const { Search } = Input;
 
 interface IContainerProps extends RouteComponentProps<IContainerProps> {
@@ -47,7 +47,7 @@ class Container extends React.Component<IContainerProps, IContainerState> {
       <Layout className="dictc-layout">
         <Sider className="dictc-sider">
           <div className="dictc-sider-header">
-            <h1 className="dictc-sider-title">Caicloud UI</h1>
+            <h1 className="dictc-sider-title">Your Title</h1>
             <Search
               placeholder="Search API"
               onChange={e => console.log(e.target.value)}

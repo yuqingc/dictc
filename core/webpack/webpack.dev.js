@@ -24,7 +24,7 @@ const extractSass = new ExtractTextPlugin({
 
 const forkTsChecker = new ForkTsCheckerWebpackPlugin({
   tsconfig: path.resolve(__dirname, '../../tsconfig.json'),
-  // tslint: path.resolve(__dirname, '../../tslint.json')
+  tslint: path.resolve(__dirname, '../../tslint.json')
 });
 
 // This is very useful and important

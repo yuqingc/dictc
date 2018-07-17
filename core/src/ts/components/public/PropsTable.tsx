@@ -55,11 +55,11 @@ interface IPropsTableState {
 }
 
 class PropsTable extends React.Component<IPropsTableProps, IPropsTableState> {
-  constructor(props: any) {
+  constructor (props: any) {
     super(props);
     this.state = {
       showTable: true,
-    }
+    };
   }
 
   private toggleTable = () => {
@@ -71,6 +71,7 @@ class PropsTable extends React.Component<IPropsTableProps, IPropsTableState> {
   public render () {
     const { data } = this.props;
     const { showTable } = this.state;
+
     return (
       <div className="dictc-propstable-wrapper">
         <Tooltip title={showTable ? 'Hide table' : 'Show table'}>
@@ -90,7 +91,7 @@ class PropsTable extends React.Component<IPropsTableProps, IPropsTableState> {
           /> :
           <p>...</p>
         }
-        
+
       </div>
     );
   }

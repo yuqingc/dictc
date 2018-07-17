@@ -15,16 +15,17 @@ $toggle-btn-size: 30px;
     border-top: 1px solid $border-color;
     position: relative;
     .toggle-source-btn {
+      transform: scale(0.7,1);
       width: $toggle-btn-size;
       height: $toggle-btn-size;
       line-height: $toggle-btn-size;
       text-align: center;
-      font-size: 16px;
+      font-size: 20px;
       position: absolute;
       bottom: 6px;
       right: 6px;
       cursor: pointer;
-      color: #cccccc;
+      color: #bbbbbb;
       transition: all 0.3s ease-in;
       &:hover {
         color: #333333;
