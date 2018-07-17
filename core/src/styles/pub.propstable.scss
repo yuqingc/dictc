@@ -1,0 +1,21 @@
+$main-blue-color: #1890ff;
+$blue-3: #91d5ff;
+$purple-4: #b37feb;
+$cyan-5: #36cfc9;
+
+.dictc-propstable-wrapper {
+  .propstable-title {
+    color: #888888;
+    width: 300px;
+    cursor: pointer;
+    &:hover {
+      color: $blue-3;
+    }
+  }
+  .propname-text {
+    color: $purple-4;
+  }
+  .type-text {
+    color: $cyan-5;
+  }
+}

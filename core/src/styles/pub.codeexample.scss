@@ -1,0 +1,39 @@
+$border-color: #ebedf0;
+$toggle-btn-size: 30px;
+
+.dictc-code-example-container {
+  margin: 10px 0;
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  .dictc-code-example-title {
+    padding: 20px;
+    word-wrap:break-word;
+    word-break:break-all;
+  }
+  .dictc-code-example-component {
+    padding: 20px;
+    border-top: 1px solid $border-color;
+    position: relative;
+    .toggle-source-btn {
+      width: $toggle-btn-size;
+      height: $toggle-btn-size;
+      line-height: $toggle-btn-size;
+      text-align: center;
+      font-size: 16px;
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      cursor: pointer;
+      color: #cccccc;
+      transition: all 0.3s ease-in;
+      &:hover {
+        color: #333333;
+        font-weight: bold;
+      }
+    }
+  }
+  .dictc-code-example-source {
+    padding: 20px;
+    border-top: 1px dashed $border-color;
+  }
+}
