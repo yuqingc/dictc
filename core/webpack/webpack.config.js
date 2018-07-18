@@ -75,7 +75,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [ 
           'awesome-typescript-loader', 
-      ],
+        ],
         exclude: /node_modules/
 			},
 			{
