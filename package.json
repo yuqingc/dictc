@@ -1,6 +1,6 @@
 {
   "name": "dictc",
-  "version": "0.0.2-alpha3",
+  "version": "0.0.2",
   "description": "Generate a manual for your React component lib",
   "main": "index.js",
   "scripts": {
