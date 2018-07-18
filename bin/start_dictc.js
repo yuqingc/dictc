@@ -7,7 +7,7 @@ const ls = spawn(
   path.resolve(__dirname, '../node_modules/.bin/webpack-dev-server'),
   [
     '--config',
-    path.resolve(__dirname, '../core/webpack/webpack.dev.js'),
+    path.resolve(__dirname, '../core/webpack/webpack.config.js'),
     '--open'
   ]
 );
