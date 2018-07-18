@@ -1,14 +1,16 @@
 import { Tooltip } from 'antd';
 import ReactMarkdown from 'react-markdown';
-import * as _Prism from 'prismjs';
-
-declare const Prism: typeof _Prism;
+import {
+  LiveProvider,
+  LiveEditor,
+  LiveError,
+  LivePreview,
+} from 'react-live';
 
 interface ICodeExampleProps {
   title: string;
-  component: JSX.Element;
+  scope?: {[index: string]: any};
   sourceCode: string;
-  language?: string;
 }
 
 interface ICodeExampleState {
@@ -27,35 +29,34 @@ class CodeExample extends React.Component<ICodeExampleProps, ICodeExampleState> 
   private toggleSource = () => {
     this.setState(state => ({
       showSource: !state.showSource
-    }), () => Prism.highlightAll());
+    }));
   }
   public render () {
     const { showSource } = this.state;
-    const { title, component, sourceCode, language } = this.props;
-    console.log('source is', this.getCodeStringOfMd(sourceCode, language));
+    const { title, sourceCode, scope } = this.props;
 
     return (
-      <div className="dictc-code-example-container">
-        <div className="dictc-code-example-title">{title}</div>
-        <div className="dictc-code-example-component">
-          {component}
-          <Tooltip title={showSource ? 'Hide code' : 'Show code'}>
-            <div
-              className="toggle-source-btn"
-              onClick={this.toggleSource}
-            >
-              {showSource ? '</>' : '< >'}
-            </div>
-          </Tooltip>
+      <LiveProvider code={sourceCode} scope={scope}>
+        <div className="dictc-code-example-container">
+          <div className="dictc-code-example-title">{title}</div>
+          <div className="dictc-code-example-component">
+            <LiveError />
+            <LivePreview />
+            <Tooltip title={showSource ? 'Hide code' : 'Show code'}>
+              <div
+                className="toggle-source-btn"
+                onClick={this.toggleSource}
+              >
+                {showSource ? '</>' : '< >'}
+              </div>
+            </Tooltip>
+          </div>
+          {
+            showSource &&
+            <LiveEditor className="dictc-code-example-source" />
+          }
         </div>
-        {
-          showSource &&
-          <ReactMarkdown
-            className="markdown-body"
-            source={this.getCodeStringOfMd(sourceCode, language)}
-          />
-        }
-      </div>
+      </LiveProvider>
     );
   }
 

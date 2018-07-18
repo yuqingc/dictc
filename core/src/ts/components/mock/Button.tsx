@@ -1,7 +1,7 @@
 class Button extends React.Component {
   public render () {
     return (
-      <button>hello i am button</button>
+      <button>{this.props.children}</button>
     );
   }
 }

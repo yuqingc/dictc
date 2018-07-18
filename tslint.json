@@ -16,7 +16,6 @@
     "no-duplicate-imports": true,
     "prefer-const": true,
     "align": [true, "parameters", "statements", "members", "elements"],
-    "arrow-return-shorthand": [true, "multiline"],
     "class-name": true,
     "comment-format": [true, "check-space"],
     "encoding": true,

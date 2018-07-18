@@ -50,15 +50,6 @@ const globalDefinition = new webpack.DefinePlugin({
 
 const htmlAddAssets = new AddAssetHtmlPlugin([
   {
-    filepath: path.resolve(__dirname, '../assets/js/prism.min.js'),
-    includeSourcemap: false,
-  },
-  {
-    filepath: path.resolve(__dirname, '../assets/css/prism.css'),
-    typeOfAsset: 'css',
-    includeSourcemap: false,
-  },
-  {
     filepath: path.resolve(__dirname, '../assets/css/github-markdown.css'),
     typeOfAsset: 'css',
     includeSourcemap: false,
@@ -72,11 +63,12 @@ const tsCheckerPlugin = new CheckerPlugin();
 const hardSourceWebpackPlugin = new HardSourceWebpackPlugin();
 
 module.exports = {
-	mode: 'development',
+  mode: 'development',
   entry: path.resolve(__dirname, '../src/ts/index.tsx'),
   devServer: {
     contentBase: path.resolve(__dirname, '../../dist'),
     port: 9000,
+    stats: 'errors-only'
   },
   module: {
     rules: [

@@ -1,4 +1,11 @@
 import {
+  LiveProvider,
+  LiveEditor,
+  LiveError,
+  LivePreview
+} from 'react-live';
+
+import {
   MarkdownBox,
   PropsTable,
   CodeExample,
@@ -35,7 +42,7 @@ export default FakeContent;
 \`\`\`
 `;
 
-const fakeCode: string = `<Button />`;
+const fakeCode: string = `<Button>this is button</Button>`;
 const fakeProps: ITableDataMeta[] = [
   {
     key: 'type',
@@ -79,7 +86,7 @@ class FakeContent extends React.Component<any, any> {
         <PropsTable data={fakeProps}/>
         <CodeExample
           title="fadsfasfdasfasdfadsfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafadsssssssssss"
-          component={<Button/>}
+          scope={{Button}}
           sourceCode={fakeCode}
         />
       </>
