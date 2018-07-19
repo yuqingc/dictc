@@ -1,6 +1,6 @@
 {
   "name": "dictc",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "description": "Generate a manual for your React component lib",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -15,7 +15,9 @@
     "url": "git+https://github.com/yuqingc/dictc.git"
   },
   "keywords": [
-    "React"
+    "React",
+    "generate documentation",
+    "React component"
   ],
   "author": "Yuqing Chen",
   "license": "MIT",

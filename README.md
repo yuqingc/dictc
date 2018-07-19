@@ -1,9 +1,9 @@
 # dictc
 
-**DO NOT DOWNLOAD IT BECAUSE IT IS USELESS**
+**DO NOT DOWNLOAD IT**
+
+because it is *NOT* prepared for release yet
 
 Generate a manual for your React component lib
-
-Not prepared for release yet
 
 Please wait until v0.1.0
