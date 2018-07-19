@@ -2,6 +2,7 @@ import { Layout, Input, BackTop } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import SideMenu from './SideMenu';
+import { getDictcConfig } from 'ts/ext/config';
 
 // mock data
 import FakeContent from 'ts/components/mock/FakeContent';
@@ -14,8 +15,11 @@ interface IContainerProps extends RouteComponentProps<IContainerProps> {
 }
 
 interface IContainerState {
-  collapsed: boolean,
-  hasError: boolean,
+  collapsed: boolean;
+  hasError: boolean;
+  appTitle: string;
+  appFooterText: string;
+  menuTheme: 'light' | 'dark';
 }
 
 class Container extends React.Component<IContainerProps, IContainerState> {
@@ -24,7 +28,18 @@ class Container extends React.Component<IContainerProps, IContainerState> {
     this.state = {
       collapsed: false,
       hasError: false,
+      appTitle: 'Documentation',
+      appFooterText: 'Powered by dictc',
+      menuTheme: 'dark',
     };
+  }
+
+  public async componentDidMount () {
+    const dictcConfig = await getDictcConfig('basicConfig') || {};
+    const appTitle = dictcConfig.title || 'Documentation';
+    const appFooterText = dictcConfig.footerText || 'Powered by dictc';
+    const menuTheme = dictcConfig.theme || 'dark';
+    this.setState({appTitle, appFooterText, menuTheme});
   }
 
   public componentDidCatch (error: any, info: any) {
@@ -41,44 +56,32 @@ class Container extends React.Component<IContainerProps, IContainerState> {
   }
 
   public render () {
-    const ERROR_MESSAGE: string = 'Oops... Something went wrong in this page. Try switching to other tabs in the left menu.';
+    const { appTitle, appFooterText, menuTheme } = this.state;
 
     return (
       <Layout className="dictc-layout">
-        <Sider className="dictc-sider">
+        <Sider className={`dictc-sider dictc-sider-${menuTheme}`}>
           <div className="dictc-sider-header">
-            <h1 className="dictc-sider-title">Your Title</h1>
+            <h1 className={`dictc-sider-title dictc-sider-title-${menuTheme}`}>{appTitle}</h1>
             <Search
               placeholder="Search API"
               onChange={e => console.log(e.target.value)}
               style={{ width: 180 }}
             />
           </div>
-          <SideMenu />
+          <SideMenu theme={menuTheme} />
         </Sider>
         <Layout className="dictc-right-layout">
           <Content className="dictc-content">
             <div className="content-paper">
               <BackTop />
-              <FakeContent />
-              <br />
-              Really
-              <br />...<br />...<br />...<br />
-              long
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />...
-              <br />...<br />...<br />...<br />...<br />...<br />
-              content
+              {/* <FakeContent /> */}
+              {
+                this.props.children
+              }
             </div>
           </Content>
-          <Footer className="dictc-footer">User defined footer text can be placed at here</Footer>
+          <Footer className="dictc-footer">{appFooterText}</Footer>
         </Layout>
       </Layout>
     );

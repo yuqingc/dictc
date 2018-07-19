@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -9,6 +10,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+
+const root = fs.realpathSync(process.cwd());
+const dictcConfig = path.resolve(root, './.dictc/dictc.config.ts');
+console.log('SSSSSSSSSs', dictcConfig)
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, '../src/index.html'),
@@ -44,6 +49,8 @@ const globalProvide = new webpack.ProvidePlugin({
 const globalDefinition = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify('development'),
+    DICTC_CONFIG_PATH: JSON.stringify(dictcConfig),
+    PROJECT_ROOT_PATH: JSON.stringify(root),
   }
 });
 
@@ -67,15 +74,20 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, '../../dist'),
     port: 9000,
-    stats: 'errors-only'
+    stats: 'errors-only',
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(tsx?|jsx)$/,
         use: [
           {
             loader: 'awesome-typescript-loader',
+            options: {
+              // silent: true,
+              errorsAsWarnings: true
+            }
           }
         ],
 			},
@@ -111,6 +123,14 @@ module.exports = {
             }
           ],
         })
+      },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: 'raw-loader',
+          }
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|ico)$/,

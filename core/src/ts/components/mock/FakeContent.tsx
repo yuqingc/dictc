@@ -42,7 +42,7 @@ export default FakeContent;
 \`\`\`
 `;
 
-const fakeCode: string = `<Button>this is button</Button>`;
+const fakeCode: string = `<Button>hello</Button>`;
 const fakeProps: ITableDataMeta[] = [
   {
     key: 'type',

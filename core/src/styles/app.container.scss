@@ -1,8 +1,17 @@
 $sider-width: 200px;
 $sider-header-height: 100px;
+$sider-background-default-color: #001529;
+$title-blue: #1890ff;
 
 .dictc-layout {
+  .dictc-sider-light {
+    background: #ffffff;
+  }
+  .dictc-sider-dark {
+    background: $sider-background-default-color;
+  }
   .dictc-sider {
+    // background: #ffffff;
     overflow: auto;
     height: 100vh;
     position: fixed;
@@ -18,9 +27,14 @@ $sider-header-height: 100px;
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
+      .dictc-sider-title-light {
+        color: $title-blue;
+      }
+      .dictc-sider-title-dark {
+        color: #ededed;
+      }
       .dictc-sider-title {
         margin: 0;
-        color: #ededed;
         padding: 0 10px;
         height: 50px;
         line-height: 50px;
