@@ -4,9 +4,6 @@ import { withRouter, RouteComponentProps } from 'react-router';
 import SideMenu from './SideMenu';
 import { getDictcConfig } from 'ts/ext/config';
 
-// mock data
-import FakeContent from 'ts/components/mock/FakeContent';
-
 const { Footer, Sider, Content } = Layout;
 const { Search } = Input;
 
@@ -50,11 +47,6 @@ class Container extends React.Component<IContainerProps, IContainerState> {
     this.setState({hasError: true});
   }
 
-  // recover from crashed page on route changing
-  private onChangeMenu = (key: string) => {
-    this.setState({hasError: false});
-  }
-
   public render () {
     const { appTitle, appFooterText, menuTheme } = this.state;
 
@@ -75,7 +67,6 @@ class Container extends React.Component<IContainerProps, IContainerState> {
           <Content className="dictc-content">
             <div className="content-paper">
               <BackTop />
-              {/* <FakeContent /> */}
               {
                 this.props.children
               }

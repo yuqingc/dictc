@@ -13,6 +13,9 @@ type ContentElementType = {
   scope: {
     [scopeName: string]: string;
   }
+} | {
+  type: 'props',
+  component: React.Component
 };
 
 // todo add page type
@@ -43,6 +46,9 @@ const pageContentComponent = (content: string | any[]) => {
                     title={v.title}
                   />
                 );
+              case 'props':
+                console.log('look', (v as any).component.propTypes);
+                break;
               default:
                 return <div>nothing here</div>;
             }

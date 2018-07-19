@@ -37,14 +37,12 @@ class App extends React.Component<IAppProps, IAppState> {
 
   // TODO: add pages type
   private renderRoutes (pages: any[]) {
-    console.log('pagessszzz', pages);
     const routes: JSX.Element[] = [];
     const testPathArr: string[] = []; // TODO: delete this
     function go (pages: any[], parentPath: string) {
       for (const page of pages) {
         const path = parentPath + '/' + page.name;
         if (!page.subPages) {
-          console.log('xxxxxxxx', page.content);
           routes.push(
             <Route
               key={page.name}
@@ -61,7 +59,6 @@ class App extends React.Component<IAppProps, IAppState> {
     }
 
     go(pages, '');
-    console.log('哈哈哈哈', routes);
 
     return routes;
   }

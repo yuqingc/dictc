@@ -24,8 +24,7 @@ class CodeExample extends React.Component<ICodeExampleProps, ICodeExampleState> 
       showSource: false,
     };
   }
-  private getCodeStringOfMd = (source: string, language: string = 'tsx') =>
-    `\n\`\`\`${language}\n${source}\n\`\`\`\n`
+
   private toggleSource = () => {
     this.setState(state => ({
       showSource: !state.showSource
