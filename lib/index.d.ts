@@ -7,3 +7,9 @@ export interface IDictcConfig {
 }
 
 export { default as projectName } from './info';
+
+type IParsePropTypes = (p: React.Component) => any;
+
+declare const parsePropTypes: IParsePropTypes;
+
+export { parsePropTypes };
