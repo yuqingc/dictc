@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -11,13 +10,11 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-const dictcConfig = require('./contentGenerator');
-console.log('ssssss', JSON.stringify(dictcConfig));
-
+// const dictcConfig = require('./contentGenerator');
+const dictcConfig = {};
 const htmlPlugin = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, '../src/index.html'),
-  title: 'dictc',
-  // favicon: path.resolve(__dirname, '../src/images/favicon.ico')
+  title: dictcConfig.title,
 });
 
 // used for extracting css out of js files
@@ -73,14 +70,15 @@ module.exports = {
   entry: path.resolve(__dirname, '../src/ts/index.tsx'),
   devServer: {
     contentBase: path.resolve(__dirname, '../../dist'),
-    port: 9000,
+    host: '0.0.0.0',
+    port: 8081,
     stats: 'errors-only',
     historyApiFallback: true,
   },
   module: {
     rules: [
       {
-        test: /\.(tsx?|jsx)$/,
+        test: /\.tsx$/,
         use: [
           {
             loader: 'awesome-typescript-loader',
@@ -88,13 +86,12 @@ module.exports = {
               // silent: true,
               errorsAsWarnings: true
             }
-          }
+          },
         ],
 			},
 			{
 				test: /\.s?css$/,
         use: extractSass.extract({
-          // use style-loader in development
           fallback: 'style-loader',
           use: [
             {

@@ -8,7 +8,7 @@ import { DictcContents } from 'ts/ext/consts';
 
 const SubMenu = Menu.SubMenu;
 
-const parsedDictcContents = JSON.parse(DictcContents as string);
+const parsedDictcContents = DictcContents !== undefined ? JSON.parse(DictcContents as string) : [];
 
 interface ISideMenuProps extends RouteComponentProps<ISideMenuProps> {
   theme: 'light' | 'dark';

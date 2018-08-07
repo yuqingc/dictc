@@ -11,6 +11,7 @@ const DefaultFooterText = 'Powered by Dictc and Ant Design';
 const root = fs.realpathSync(process.cwd());
 // get the absolute path of the config file
 const configPath = path.resolve(root, './.dictc/dictc.config.js');
+console.log('Reading dictc configs from ', configPath);
 // get the config object
 const config = require(configPath);
 

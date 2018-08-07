@@ -25,7 +25,7 @@ class App extends React.Component<IAppProps, IAppState> {
   public componentDidMount () {
     // const pages = await getDictcConfig('pages');
     this.setState({
-      routes: this.renderRoutes(JSON.parse(DictcContents as string)),
+      routes: DictcContents !== undefined ? this.renderRoutes(JSON.parse(DictcContents as string)) : [],
     });
   }
 
