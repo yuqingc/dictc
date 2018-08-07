@@ -3,14 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import routes, { IMtRoute } from 'ts/routes';
 import Container from './Container';
 import { NotFound } from 'ts/components/public';
-import { getDictcConfig } from 'ts/ext/config';
 import { pageContentComponent } from './pageContentComponent';
-
-// import xxx from '/home/matt/Projects/github.com/yuqingc/notebook1/mtr/docs/start.md';
-
-const testComponent = (content: string) => () => (
-  <div>{content}</div>
-);
+import { DictcContents } from 'ts/ext/consts';
 
 interface IAppProps {
 }
@@ -28,10 +22,10 @@ class App extends React.Component<IAppProps, IAppState> {
     };
   }
 
-  public async componentDidMount () {
-    const pages = await getDictcConfig('pages');
+  public componentDidMount () {
+    // const pages = await getDictcConfig('pages');
     this.setState({
-      routes: this.renderRoutes(pages)
+      routes: this.renderRoutes(JSON.parse(DictcContents as string)),
     });
   }
 
@@ -42,7 +36,7 @@ class App extends React.Component<IAppProps, IAppState> {
     function go (pages: any[], parentPath: string) {
       for (const page of pages) {
         const path = parentPath + '/' + page.name;
-        if (!page.subPages) {
+        if (!page.pages) {
           routes.push(
             <Route
               key={page.name}
@@ -57,6 +51,7 @@ class App extends React.Component<IAppProps, IAppState> {
         }
       }
     }
+    console.log('哈哈', testPathArr);
 
     go(pages, '');
 

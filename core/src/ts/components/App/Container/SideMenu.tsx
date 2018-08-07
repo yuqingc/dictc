@@ -4,9 +4,11 @@ import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { getDictcConfig } from 'ts/ext/config';
+import { DictcContents } from 'ts/ext/consts';
 
 const SubMenu = Menu.SubMenu;
+
+const parsedDictcContents = JSON.parse(DictcContents as string);
 
 interface ISideMenuProps extends RouteComponentProps<ISideMenuProps> {
   theme: 'light' | 'dark';
@@ -26,12 +28,11 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     };
   }
 
-  public async componentDidMount () {
+  public componentDidMount () {
     const { history } = this.props;
-    const pages = await getDictcConfig('pages');
-    const fisrtItemName = pages && pages[0] && encodeURI(pages[0].name);
+    const fisrtItemName = parsedDictcContents && parsedDictcContents[0] && encodeURI(parsedDictcContents[0].name);
     this.setState({
-      subMenus: this.renderMenus(pages),
+      subMenus: this.renderMenus(parsedDictcContents),
       selectedKey: fisrtItemName,
     }, () => {
       history.replace('/' + fisrtItemName);
@@ -55,13 +56,13 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     function go (pages: any[]) {
       const menuArr: JSX.Element[] = [];
       for (const page of pages) {
-        if (!page.subPages) {
+        if (!page.pages) {
           menuArr.push(<Menu.Item key={encodeURI(page.name)}>{page.name}</Menu.Item>);
         } else {
           menuArr.push(
             <SubMenu key={encodeURI(page.name)} title={page.name}>
               {
-                go(page.subPages)
+                go(page.pages)
               }
             </SubMenu>
           );

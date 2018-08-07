@@ -2,7 +2,7 @@ import { Layout, Input, BackTop } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router';
 
 import SideMenu from './SideMenu';
-import { getDictcConfig } from 'ts/ext/config';
+import { DictcFooterText, DictcTitle } from 'ts/ext/consts';
 
 const { Footer, Sider, Content } = Layout;
 const { Search } = Input;
@@ -14,8 +14,6 @@ interface IContainerProps extends RouteComponentProps<IContainerProps> {
 interface IContainerState {
   collapsed: boolean;
   hasError: boolean;
-  appTitle: string;
-  appFooterText: string;
   menuTheme: 'light' | 'dark';
 }
 
@@ -25,18 +23,8 @@ class Container extends React.Component<IContainerProps, IContainerState> {
     this.state = {
       collapsed: false,
       hasError: false,
-      appTitle: 'Documentation',
-      appFooterText: 'Powered by dictc',
       menuTheme: 'dark',
     };
-  }
-
-  public async componentDidMount () {
-    const dictcConfig = await getDictcConfig('basicConfig') || {};
-    const appTitle = dictcConfig.title || 'Documentation';
-    const appFooterText = dictcConfig.footerText || 'Powered by dictc';
-    const menuTheme = dictcConfig.theme || 'dark';
-    this.setState({appTitle, appFooterText, menuTheme});
   }
 
   public componentDidCatch (error: any, info: any) {
@@ -48,13 +36,13 @@ class Container extends React.Component<IContainerProps, IContainerState> {
   }
 
   public render () {
-    const { appTitle, appFooterText, menuTheme } = this.state;
+    const { menuTheme } = this.state;
 
     return (
       <Layout className="dictc-layout">
         <Sider className={`dictc-sider dictc-sider-${menuTheme}`}>
           <div className="dictc-sider-header">
-            <h1 className={`dictc-sider-title dictc-sider-title-${menuTheme}`}>{appTitle}</h1>
+            <h1 className={`dictc-sider-title dictc-sider-title-${menuTheme}`}>{DictcTitle}</h1>
             <Search
               placeholder="Search API"
               onChange={e => console.log(e.target.value)}
@@ -72,7 +60,7 @@ class Container extends React.Component<IContainerProps, IContainerState> {
               }
             </div>
           </Content>
-          <Footer className="dictc-footer">{appFooterText}</Footer>
+          <Footer className="dictc-footer">{DictcFooterText}</Footer>
         </Layout>
       </Layout>
     );
