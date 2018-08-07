@@ -1,2 +1,5 @@
-#!/usr/bin/env node
-require('./start_dictc.js');
+#!/bin/bash
+
+if cd node_modules/dictc; then
+  bin/dictc.js
+fi

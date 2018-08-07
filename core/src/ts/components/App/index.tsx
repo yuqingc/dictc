@@ -25,7 +25,7 @@ class App extends React.Component<IAppProps, IAppState> {
   public componentDidMount () {
     // const pages = await getDictcConfig('pages');
     this.setState({
-      routes: DictcContents !== undefined ? this.renderRoutes(JSON.parse(DictcContents as string)) : [],
+      routes: DictcContents !== undefined ? this.renderRoutes(DictcContents) : [],
     });
   }
 
@@ -34,24 +34,23 @@ class App extends React.Component<IAppProps, IAppState> {
     const routes: JSX.Element[] = [];
     const testPathArr: string[] = []; // TODO: delete this
     function go (pages: any[], parentPath: string) {
-      for (const page of pages) {
-        const path = parentPath + '/' + page.name;
-        if (!page.pages) {
+      for (const v of pages) {
+        const path = parentPath + '/' + v.name;
+        if (!v.pages) {
           routes.push(
             <Route
-              key={page.name}
+              key={v.name}
               path={path}
               exact
-              component={pageContentComponent(page.content)}
+              component={pageContentComponent(v.content)}
             />
           );
           testPathArr.push(path);
         } else {
-          go(page.subPages, path);
+          go(v.pages, path);
         }
       }
     }
-    console.log('哈哈', testPathArr);
 
     go(pages, '');
 

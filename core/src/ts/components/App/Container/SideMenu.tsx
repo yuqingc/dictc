@@ -8,8 +8,6 @@ import { DictcContents } from 'ts/ext/consts';
 
 const SubMenu = Menu.SubMenu;
 
-const parsedDictcContents = DictcContents !== undefined ? JSON.parse(DictcContents as string) : [];
-
 interface ISideMenuProps extends RouteComponentProps<ISideMenuProps> {
   theme: 'light' | 'dark';
 }
@@ -30,9 +28,9 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
 
   public componentDidMount () {
     const { history } = this.props;
-    const fisrtItemName = parsedDictcContents && parsedDictcContents[0] && encodeURI(parsedDictcContents[0].name);
+    const fisrtItemName = DictcContents && DictcContents[0] && encodeURI(DictcContents[0].name) || '';
     this.setState({
-      subMenus: this.renderMenus(parsedDictcContents),
+      subMenus: this.renderMenus(DictcContents),
       selectedKey: fisrtItemName,
     }, () => {
       history.replace('/' + fisrtItemName);
@@ -55,14 +53,14 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
   private renderMenus = (pages: any[]) => {
     function go (pages: any[]) {
       const menuArr: JSX.Element[] = [];
-      for (const page of pages) {
-        if (!page.pages) {
-          menuArr.push(<Menu.Item key={encodeURI(page.name)}>{page.name}</Menu.Item>);
+      for (const v of pages) {
+        if (!v.pages) {
+          menuArr.push(<Menu.Item key={encodeURI(v.name)}>{v.name}</Menu.Item>);
         } else {
           menuArr.push(
-            <SubMenu key={encodeURI(page.name)} title={page.name}>
+            <SubMenu key={encodeURI(v.name)} title={v.name}>
               {
-                go(page.pages)
+                go(v.pages)
               }
             </SubMenu>
           );

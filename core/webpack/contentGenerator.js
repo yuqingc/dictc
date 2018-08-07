@@ -8,7 +8,9 @@ const DefaultTitle = 'Documentation';
 const DefaultFooterText = 'Powered by Dictc and Ant Design';
 
 // get root directory of user's project
-const root = fs.realpathSync(process.cwd());
+// const root = fs.realpathSync(process.cwd());
+// const root = process.cwd();
+const root = path.resolve(process.env.PWD, '../../');
 // get the absolute path of the config file
 const configPath = path.resolve(root, './.dictc/dictc.config.js');
 console.log('Reading dictc configs from ', configPath);
@@ -28,10 +30,9 @@ if (config && Object.prototype.toString.call(config.sections) === '[object Array
     const pageItem = Object.create(null);
     pageItem.name = item.name;
     if (item.contentPath) {
-      const page = Object.create(null); // single page
-      page.name = item.name;
-      page.content = fs.readFileSync(path.resolve(root, item.contentPath)).toString();
-      pageItem.page = page;
+      // single page
+      pageItem.name = item.name;
+      pageItem.content = fs.readFileSync(path.resolve(root, item.contentPath)).toString();
     } else if (item.resolvePath) {
       const absoluteResolvePath = path.resolve(root, item.resolvePath);
       const pagePaths = fs.readdirSync(absoluteResolvePath);

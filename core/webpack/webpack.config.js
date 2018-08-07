@@ -8,10 +8,11 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+// const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-// const dictcConfig = require('./contentGenerator');
-const dictcConfig = {};
+const dictcConfig = require('./contentGenerator');
+console.log('Dictc config is --->>>', dictcConfig);
+// const dictcConfig = {};
 const htmlPlugin = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, '../src/index.html'),
   title: dictcConfig.title,
@@ -63,7 +64,9 @@ const tsCheckerPlugin = new CheckerPlugin();
 
 // Using cache to build, makes complition faster
 // This could cause building fail in dev mode
-const hardSourceWebpackPlugin = new HardSourceWebpackPlugin();
+// 暂时不用缓存
+// 等以后动态读取 md 再说 内容传环境变量不能实时更新 需要改进
+// const hardSourceWebpackPlugin = new HardSourceWebpackPlugin();
 
 module.exports = {
   mode: 'development',
@@ -78,7 +81,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         use: [
           {
             loader: 'awesome-typescript-loader',
@@ -152,7 +155,7 @@ module.exports = {
     forkTsChecker,
     globalProvide,
     globalDefinition,
-    hardSourceWebpackPlugin,
+    // hardSourceWebpackPlugin,
 ],
   // publicPath is essential, without which the page will fail on refreshing the browser 
   output: {
