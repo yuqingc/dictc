@@ -75,7 +75,6 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     return go(pages);
   }
 
-  // tslint:disable-next-line:member-ordering
   public render () {
     const { theme } = this.props;
     const { subMenus, selectedKey } = this.state;
