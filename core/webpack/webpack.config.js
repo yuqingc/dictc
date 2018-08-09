@@ -10,8 +10,9 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const { CheckerPlugin } = require('awesome-typescript-loader');
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
-const dictcConfig = require('./contentGenerator');
+const dictcConfig = require('./configReader');
 require('./contentSourceGenerator')();
+
 const htmlPlugin = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, '../src/index.html'),
   title: dictcConfig.title,

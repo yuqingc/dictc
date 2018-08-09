@@ -4,3 +4,4 @@
 node_modules
 .awcache
 yarn-error.log
+core/src/ts/out/*

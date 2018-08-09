@@ -3,8 +3,9 @@
 import {
   MarkdownBox,
   CodeExample,
-  PropsTable,
 } from 'ts/components/public';
+
+import dictcContext from 'ts/out/dictcContext';
 
 type ContentElementType = {
   type: 'md';
@@ -23,49 +24,54 @@ type ContentElementType = {
   parsedProps: any;
 };
 
-// todo add page type
-const pageContentComponent = (content: string | any[]) => {
-  if (typeof content === 'string') {
-    return () => (
-      <MarkdownBox source={content} />
-    );
-  } else if (Object.prototype.toString.call(content) === '[object Array]') {
-    return () => (
-      <>
-        {
-          content.map((v: ContentElementType, i: number) => {
-            switch (v.type) {
-              case 'md':
-                return (
-                  <MarkdownBox
-                    key={i}
-                    source={v.content}
-                  />
-                );
-              case 'demo':
-                return (
-                  <CodeExample
-                    key={i}
-                    scope={v.scope}
-                    sourceCode={v.code}
-                    title={v.title}
-                  />
-                );
-              case 'props':
-                console.log('case props', (v as any).component.propTypes);
+interface IResultContent {
+  type: 'plain' | 'code';
+  content: string;
+}
 
-                // return(
-                //   <PropsTable parsedData={v.parsedProps} />
-                // );
-                break;
-              default:
-                return <div>nothing here...</div>;
-            }
-          })
-        }
-      </>
-    );
+const pageContentComponent = (mdString: string) => {
+  const resultContents: IResultContent[] = [];
+  const plainContents = mdString.split(/```[tj]sx[\s\S]*?```/);
+  const codeContents = mdString.match(/```[tj]sx[\s\S]*?```/g);
+  if (codeContents === null) {
+    resultContents.push({
+      type: 'plain',
+      content: plainContents[0]
+    });
+  } else {
+    let i = 0;
+    while (i < plainContents.length) {
+      resultContents.push({
+        type: 'plain',
+        content: plainContents[i]
+      });
+      i < codeContents.length && resultContents.push({
+        type: 'code',
+        content: codeContents[i].replace(/```[jt]sx/, '').replace(/```/, '')
+      });
+      i++;
+    }
   }
+
+  return () => (
+    <>
+      {
+       resultContents.map((v, i) => {
+        if (v.type === 'plain') {
+          return <MarkdownBox key={i} source={v.content} />;
+        } else if (v.type === 'code') {
+          return (
+            <CodeExample
+              key={i}
+              scope={dictcContext}
+              sourceCode={v.content}
+              title={'Title'}
+            />
+          );
+        }})
+      }
+    </>
+  );
 };
 
 export { pageContentComponent };
