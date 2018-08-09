@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from './Container';
 import { NotFound } from 'ts/components/public';
 import { pageContentComponent } from './pageContentComponent';
-import { DictcContents } from 'ts/ext/consts';
+import dictcPages from 'ts/out/dictcContent';
 
 interface IAppProps {
 }
@@ -25,7 +25,7 @@ class App extends React.Component<IAppProps, IAppState> {
   public componentDidMount () {
     // const pages = await getDictcConfig('pages');
     this.setState({
-      routes: DictcContents !== undefined ? this.renderRoutes(DictcContents) : [],
+      routes: dictcPages !== undefined ? this.renderRoutes(dictcPages) : [],
     });
   }
 
@@ -51,6 +51,7 @@ class App extends React.Component<IAppProps, IAppState> {
         }
       }
     }
+    console.log('testArr routes', testPathArr);
 
     go(pages, '');
 

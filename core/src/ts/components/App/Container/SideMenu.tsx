@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import { DictcContents } from 'ts/ext/consts';
+import dictcPages from 'ts/out/dictcContent';
 
 const SubMenu = Menu.SubMenu;
 
@@ -28,9 +28,9 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
 
   public componentDidMount () {
     const { history } = this.props;
-    const fisrtItemName = DictcContents && DictcContents[0] && encodeURI(DictcContents[0].name) || '';
+    const fisrtItemName = dictcPages && dictcPages[0] && encodeURI(dictcPages[0].name) || '';
     this.setState({
-      subMenus: this.renderMenus(DictcContents),
+      subMenus: this.renderMenus(dictcPages),
       selectedKey: fisrtItemName,
     }, () => {
       history.replace('/' + fisrtItemName);
