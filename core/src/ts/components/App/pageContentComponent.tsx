@@ -65,7 +65,6 @@ const pageContentComponent = (mdString: string) => {
               key={i}
               scope={dictcContext}
               sourceCode={v.content}
-              title={'Title'}
             />
           );
         }})

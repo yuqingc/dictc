@@ -10,6 +10,7 @@ const SubMenu = Menu.SubMenu;
 
 interface ISideMenuProps extends RouteComponentProps<ISideMenuProps> {
   theme: 'light' | 'dark';
+  filteredName: string;
 }
 
 interface ISideMenuState {
@@ -30,7 +31,7 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
     const { history } = this.props;
     const fisrtItemName = dictcPages && dictcPages[0] && encodeURI(dictcPages[0].name) || '';
     this.setState({
-      subMenus: this.renderMenus(dictcPages),
+      // subMenus: this.renderMenus(dictcPages),
       selectedKey: fisrtItemName,
     }, () => {
       history.replace('/' + fisrtItemName);
@@ -51,7 +52,8 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
 
   // TODO: add pages type
   private renderMenus = (pages: any[]) => {
-    function go (pages: any[]) {
+    const { filteredName } = this.props;
+    function goAll (pages: any[]) {
       const menuArr: JSX.Element[] = [];
       for (const v of pages) {
         if (!v.pages) {
@@ -60,7 +62,7 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
           menuArr.push(
             <SubMenu key={encodeURI(v.name)} title={v.name}>
               {
-                go(v.pages)
+                goAll(v.pages)
               }
             </SubMenu>
           );
@@ -70,7 +72,25 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
       return menuArr;
     }
 
-    return go(pages);
+    // If there is a filter from the search text area, run this function
+    const menuArr: JSX.Element[] = [];
+    function goWithFilter (pages: any[], parentPath: string) {
+      for (const v of pages) {
+        if (!v.pages && new RegExp(filteredName, 'i').test(v.name)) {
+          menuArr.push(<Menu.Item key={parentPath + encodeURI(v.name)}>{v.name}</Menu.Item>);
+        } else if (v.pages) {
+          goWithFilter(v.pages, v.name + '/');
+        }
+      }
+    }
+
+    if (filteredName) {
+      goWithFilter(pages, '');
+
+      return menuArr;
+    }
+
+    return goAll(pages);
   }
 
   public render () {
@@ -85,7 +105,7 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
         selectedKeys={[selectedKey]}
       >
         {
-          subMenus
+          this.renderMenus(dictcPages)
         }
       </Menu>
     );

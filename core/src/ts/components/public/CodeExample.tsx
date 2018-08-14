@@ -1,5 +1,5 @@
-import { Tooltip } from 'antd';
-import ReactMarkdown from 'react-markdown';
+import { Tooltip, Icon, message } from 'antd';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import {
   LiveProvider,
   LiveEditor,
@@ -8,7 +8,6 @@ import {
 } from 'react-live';
 
 interface ICodeExampleProps {
-  title: string;
   scope?: {[index: string]: any};
   sourceCode: string;
 }
@@ -30,20 +29,29 @@ class CodeExample extends React.Component<ICodeExampleProps, ICodeExampleState> 
       showSource: !state.showSource
     }));
   }
+
+  private onCopyCode = () => {
+    message.success('Copied!');
+  }
+
   public render () {
     const { showSource } = this.state;
-    const { title, sourceCode, scope } = this.props;
+    const { sourceCode, scope } = this.props;
 
     return (
       <LiveProvider code={sourceCode} scope={scope}>
         <div className="dictc-code-example-container">
-          <div className="dictc-code-example-title">{title}</div>
           <div className="dictc-code-example-component">
             <LiveError />
             <LivePreview />
+            <Tooltip title="Copy code">
+              <div className="copy-code-button example-btn">
+                <CopyToClipboard text={sourceCode} onCopy={this.onCopyCode}><Icon type="copy" /></CopyToClipboard>
+              </div>
+            </Tooltip>
             <Tooltip title={showSource ? 'Hide code' : 'Show code'}>
               <div
-                className="toggle-source-btn"
+                className="toggle-source-btn example-btn"
                 onClick={this.toggleSource}
               >
                 {showSource ? '</>' : '< >'}

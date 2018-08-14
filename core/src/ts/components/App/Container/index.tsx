@@ -15,6 +15,7 @@ interface IContainerState {
   collapsed: boolean;
   hasError: boolean;
   menuTheme: 'light' | 'dark';
+  searchInputText: string;
 }
 
 class Container extends React.Component<IContainerProps, IContainerState> {
@@ -24,6 +25,7 @@ class Container extends React.Component<IContainerProps, IContainerState> {
       collapsed: false,
       hasError: false,
       menuTheme: 'dark',
+      searchInputText: '',
     };
   }
 
@@ -35,8 +37,12 @@ class Container extends React.Component<IContainerProps, IContainerState> {
     this.setState({hasError: true});
   }
 
+  private onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({searchInputText: e.target.value});
+  }
+
   public render () {
-    const { menuTheme } = this.state;
+    const { menuTheme, searchInputText } = this.state;
 
     return (
       <Layout className="dictc-layout">
@@ -45,11 +51,11 @@ class Container extends React.Component<IContainerProps, IContainerState> {
             <h1 className={`dictc-sider-title dictc-sider-title-${menuTheme}`}>{DictcTitle}</h1>
             <Search
               placeholder="Search API"
-              onChange={e => console.log(e.target.value)}
+              onChange={this.onChangeSearchInput}
               style={{ width: 180 }}
             />
           </div>
-          <SideMenu theme={menuTheme} />
+          <SideMenu theme={menuTheme} filteredName={searchInputText} />
         </Sider>
         <Layout className="dictc-right-layout">
           <Content className="dictc-content">
