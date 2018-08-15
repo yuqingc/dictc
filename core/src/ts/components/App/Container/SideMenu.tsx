@@ -14,39 +14,46 @@ interface ISideMenuProps extends RouteComponentProps<ISideMenuProps> {
 }
 
 interface ISideMenuState {
-  subMenus: JSX.Element[] | null;
   selectedKey: string;
+  // selectedKeyPath: string;
 }
 
 class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
   constructor (props: any) {
     super(props);
     this.state = {
-      subMenus: null,
       selectedKey: '',
+      // selectedKeyPath: '/'
     };
   }
 
   public componentDidMount () {
-    const { history } = this.props;
-    const fisrtItemName = dictcPages && dictcPages[0] && encodeURI(dictcPages[0].name) || '';
-    this.setState({
-      // subMenus: this.renderMenus(dictcPages),
-      selectedKey: fisrtItemName,
-    }, () => {
-      history.replace('/' + fisrtItemName);
-    });
+    const { history, location } = this.props;
+    if (location.pathname === '/') {
+      const fisrtItemName = dictcPages && dictcPages[0] && encodeURI(dictcPages[0].name) || '';
+      console.log('haha', fisrtItemName);
+      this.setState({
+        selectedKey: fisrtItemName,
+      }, () => {
+        history.replace('/' + fisrtItemName);
+      });
+    } else {
+      const pathnameSplittedArray = location.pathname.split('/');
+      console.log('zeze', pathnameSplittedArray);
+      this.setState({
+        selectedKey: encodeURI(pathnameSplittedArray[pathnameSplittedArray.length - 1]),
+      });
+    }
   }
 
   private handleClick = (e: ClickParam) => {
     const { history } = this.props;
-    // history.replace(e.key);
-    // onChangeMenu && onChangeMenu(e.key);
+    const selectedKeyPath = '/' + e.keyPath.reverse().join('/');
     this.setState({
-      selectedKey: e.key
+      selectedKey: e.key,
+      // selectedKeyPath,
     }, () => {
-      const path = e.keyPath.reverse().join('/');
-      history.push('/' + path);
+      history.push(selectedKeyPath);
     });
   }
 
@@ -95,7 +102,7 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
 
   public render () {
     const { theme } = this.props;
-    const { subMenus, selectedKey } = this.state;
+    const { selectedKey } = this.state;
 
     return (
       <Menu

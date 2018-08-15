@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// import routes, { IMtRoute } from 'ts/routes';
 import Container from './Container';
 import { NotFound } from 'ts/components/public';
 import { pageContentComponent } from './pageContentComponent';
@@ -23,7 +22,6 @@ class App extends React.Component<IAppProps, IAppState> {
   }
 
   public componentDidMount () {
-    // const pages = await getDictcConfig('pages');
     this.setState({
       routes: dictcPages !== undefined ? this.renderRoutes(dictcPages) : [],
     });
