@@ -10,6 +10,8 @@ $red-1: #fff1f0;
   .dictc-code-example-component {
     padding: 20px;
     position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
     .example-btn {
       position: absolute;
       width: $toggle-btn-size;
