@@ -51,6 +51,8 @@ module.exports = {
   footerText: 'Copyright Company 2018 - Project',
   // Dictc import components used in the documentation from the context directory
   context: 'src', 
+  // Customized style file
+  styleFile: 'src/styles/index.less',
   // Define your pages and contents
   sections: [
     {

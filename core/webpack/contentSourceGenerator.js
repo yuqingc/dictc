@@ -93,6 +93,12 @@ export default context;
 `
     );
   }
+  if (config.styleFile) {
+    fs.appendFileSync(dictcContextPath, `
+// style file
+import '${path.resolve(root, config.styleFile)}';
+    `);
+  }
   console.log('Done.')
   
 
